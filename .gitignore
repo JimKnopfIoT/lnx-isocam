@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local runtime / exports
+*.png
+*.jpg
+!media/*.png
+!icons/*.png
+!media/*.jpg
+
+# Local data — do not commit
+orig-backup/
+*.doa
+*.wav
+*.apk
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store

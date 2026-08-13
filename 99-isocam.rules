@@ -1,0 +1,29 @@
+# Crysound SonoCam Pocket CRY8024 — udev rules
+#
+# Install:
+#   sudo cp 99-isocam.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules
+#   sudo udevadm trigger
+#
+# Then re-plug the camera (or switch its USB mode).
+
+# ---------------------------------------------------------------------------
+# Rockchip RK3576 internal SoC — ADB / file-transfer ("rk3576_u") gadget.
+#  - MODE/GROUP/uaccess: non-root access for adb and file pull/push
+#  - ID_MTP_DEVICE=0 + UDISKS_IGNORE=1: stop the desktop from trying to
+#    auto-mount it as a disk/MTP -> kills the "rk3576 cannot be mounted" popup
+#  - stable symlink /dev/isocam-adb
+SUBSYSTEM=="usb", ATTR{idVendor}=="2207", ATTR{idProduct}=="0007", MODE="0660", GROUP="plugdev", TAG+="uaccess", SYMLINK+="isocam-adb", ENV{ID_MTP_DEVICE}="0", ENV{UDISKS_IGNORE}="1"
+
+# Catch any other Rockchip normal-mode gadget PIDs, just for access + no-automount.
+SUBSYSTEM=="usb", ATTR{idVendor}=="2207", MODE="0660", GROUP="plugdev", TAG+="uaccess", ENV{UDISKS_IGNORE}="1"
+
+# Rockchip maskrom / loader mode — only relevant later for firmware dump/flash
+# with rkdeveloptool. Listed so access is ready if we ever go there.
+SUBSYSTEM=="usb", ATTR{idVendor}=="2207", ATTR{idProduct}=="350a", MODE="0660", GROUP="plugdev", TAG+="uaccess", SYMLINK+="isocam-maskrom"
+SUBSYSTEM=="usb", ATTR{idVendor}=="2207", ATTR{idProduct}=="350b", MODE="0660", GROUP="plugdev", TAG+="uaccess", SYMLINK+="isocam-loader"
+
+# ---------------------------------------------------------------------------
+# Webcam / capture personality (internal HDMI->USB bridge, "USB3.0 HD ... Capture").
+# Already accessible via the 'video' group, but add a stable symlink + uaccess.
+SUBSYSTEM=="usb", ATTR{idVendor}=="eba4", ATTR{idProduct}=="7588", MODE="0660", GROUP="video", TAG+="uaccess", SYMLINK+="isocam-usb"

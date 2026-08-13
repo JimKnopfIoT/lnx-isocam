@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=iSoCam
+GenericName=Acoustic Camera Viewer
+Comment=View and export measurements from a CRY8024 acoustic camera
+Exec=lnx-isocam
+Icon=lnx-isocam
+Terminal=false
+Categories=Science;Electronics;
+Keywords=acoustic;ultrasound;camera;measurement;spectrum;
+StartupWMClass=app.py
