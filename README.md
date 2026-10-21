@@ -90,3 +90,5 @@ adb only appears during a short window at boot.
 > **Not affiliated with, endorsed by, or connected to Crysound.** "Crysound",
 > "SonoCam" and any product names are trademarks of their respective owners and are
 > used here only descriptively, to identify the hardware this client works with.
+
+AI assisted development
